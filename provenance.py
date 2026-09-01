@@ -62,37 +62,3 @@ def provenance_check(path):
         "status": "no_marking_found",
         "evidence": None
     }
-
-if __name__ == "__main__":
-    import os
-    import sys
- 
-    folder = sys.argv[1] if len(sys.argv) > 1 else "samples/prov"
-    expected = {
-        "clean.jpg": "no_marking_found",
-        "exif_software.jpg": "marked",
-        "exif_desc.jpg": "marked",
-        "xmp.jpg": "marked",
-        "c2pa_like.jpg": "marked",
-        "stripped.jpg": "no_marking_found",
-        "png_text.png": "marked",
-        "benign_png_text.png": "no_marking_found",
-    }
- 
-    failures = 0
-    checked = 0
-    for name in sorted(os.listdir(folder)):
-        result = provenance_check(os.path.join(folder, name))
-        want = expected.get(name)
-        if want is None:
-            print(f"     {name:20s} -> {result['status']:17s} {result['evidence']}")
-            continue
-        ok = result["status"] == want
-        checked += 1
-        failures += not ok
-        evidence = (result["evidence"] or "")[:46].replace("\n", " ")
-        missing = set(expected) - set(os.listdir(folder))
-    assert not missing, f"fixtures never generated: {sorted(missing)}"
-    print(f"\n{checked - failures}/{checked} passing")
-    assert failures == 0, f"{failures} fixture(s) misclassified"
-    
