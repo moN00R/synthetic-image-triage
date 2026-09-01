@@ -1,5 +1,6 @@
-torch
-opencv-python
-numpy
-matplotlib
-Pillow
+# Pinned to the versions already resolved in the (now removed) Pipfile.lock.
+torch==2.13.0
+numpy==2.5.2
+pillow==12.3.0
+matplotlib==3.11.1
+opencv-python==5.0.0.93

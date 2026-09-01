@@ -40,7 +40,7 @@ Rule 3 matches against a signature list rather than accepting any text chunk. An
 
 Rule 4 is deliberately last and deliberately weak. It is a substring match against compressed bytes with no structure parsing, so it cannot distinguish a real manifest from a coincidental byte sequence. It speaks only when nothing above it does.
 
-`python provenance.py` runs eight fixtures covering all four rules plus three negatives. `make_fixtures.py` generates them from any image you have.
+pytest runs eleven checks: the eight provenance fixtures covering all four rules plus three negatives, and three assertions on the shape of the returned result. Fixtures are generated into a temporary directory at test time, so the suite runs on a fresh clone. `make_fixtures.py` generates them from any image you have.
 
 ## Features
 
@@ -90,7 +90,8 @@ This is **not** presented as a detection result. Sample size is one, and no real
 
 ```bash
 pip install -r requirements.txt
-python provenance.py          # fixture suite, expects 8/8
+pip install -r requirements-dev.txt
+pytest                        # expect 11 passed
 python triage.py samples/ --out results.csv --panels docs/panels/
 ```
 
