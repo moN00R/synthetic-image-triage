@@ -20,8 +20,8 @@ A reviewer handling an unmarked image — a newsroom, an insurer processing clai
 Checks for provenance markers first, because the machine-readable mark is the primary signal under Article 50. Only when none is found does it fall back to an intrinsic measurement: a Hann-windowed 2D FFT (`torch.fft`) collapsed into a 1D radial power spectrum, from which it extracts interpretable features.
 
 ```bash
-python triage.py samples/ --out results.csv --panels docs/panels/   # a folder
-python triage.py one_image.png                                      # a single image
+python triage.py path/to/your/images/ --out results.csv --panels docs/panels/ # a folder
+python triage.py path/to/one_image.png # a single image
 ```
 
 Per image you get a CSV row and a three-panel figure (original | log spectrum | radial profile). Pass a single image with no --out to print its features to stdout instead.
@@ -93,7 +93,7 @@ This is **not** presented as a detection result. Sample size is one, and no real
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 pytest                        # expect 11 passed
-python triage.py samples/ --out results.csv --panels docs/panels/
+python triage.py path/to/your/images/ --out results.csv --panels docs/panels/ # a folder
 ```
 
 ## Built for
